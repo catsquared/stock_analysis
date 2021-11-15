@@ -27,7 +27,7 @@ For each year, each stock has the following information available by day:
 - Trading volume
 
 # Results
-The analysis is well described with screenshots and code (4 pt).
+
 
 ## Stock Performance
 The 2018 and 2017 clean energy stocks had the following performances:
@@ -35,9 +35,9 @@ The 2018 and 2017 clean energy stocks had the following performances:
 ![2018 Clean Energy Stocks Performance](Resources/stock_analysis_2018.png)
 ![2017 Clean Energy Stocks Performance](Resources/stock_analysis_2017.png)
 
-Steve's parents invested in DQ, which had 199.4% return in 2017. In 2018, the return was -62.6%, a dramatic decrease year over year. The total daily volume nearly tripled year over year. 
+Steve's parents invested in DQ, which had 199.4% return in 2017. In 2018, the return was -62.6%, a dramatic decrease year over year. The total daily volume for DQ nearly tripled year over year. 
 
-Looking at the rest of the clean energy stocks, the market as a whole underperformed in 2018 when comparing to 2017 performance. 2017 returns were almost entirely green across the board while 2018 is mostly red, with only two stocks, ENPH and RUN outperforming the market. Further research will be needed on the macro environments in 2017 and 2018 to make an informed decision. 
+Looking at the rest of the clean energy stocks, the market as a whole underperformed in 2018 when comparing to 2017 performance. 2017 returns were almost entirely green across the board while 2018 is mostly red, with only two stocks, ENPH and RUN outperforming the market. Further research will be needed on the macro environments in 2017 and 2018 to make an informed decision pon future investments. 
 
 While not calculated in the macro output, the total volume for 2018 and 2017 in this set of stocks was 3,306,038,200 and 3,166,639,100, not representing a significant increase year over year. 
 
@@ -53,7 +53,7 @@ After refactoring the code, the run times for both years became:
 ![2018 Stock Analysis run time refactored](Resources/VBA_Challenge_2018.png)
 ![2017 Stock Analysis run time refactored](Resources/VBA_Challenge_2017.png)
 
-This represens 
+The refactored run time represents a reduction in execution time by 75% compared to the previous VBA code. 
 
 
 # Summary
@@ -61,21 +61,34 @@ This represens
 ## General Discussion Regarding Refactoring Code
 
 ### Advantages
-1. Refactored code should be more efficient, using less memory.
-2. Refactored code should be more clean and readable.
+1. Refactored code should be more efficient, using less memory. As shown in the next section below, it is optimal when the code can reduce the number of times a row has to be read. Similarly, reducing the number of variables that the system has to track will reduce the memory used. 
+
+2. Refactored code should be more readable. The original code with nested loops can make the reader lose track of which loop they are in. Refactored code with blocks of code that are complete on its own will make it easier to make changes to variables and outputs. 
 
 ### Disadvantages
-1. 
-2. 
-There is a detailed statement on the advantages and disadvantages of refactoring code in general (3 pt).
+Refactoring code can be difficult to implement all the time. It is difficult to think outside the box and move away from the original logic. 
 
 ## Original vs Refactored VBA Script
 
 ### Advantages
-1. 
-2. 
+In the original code, the logic is:
+
+    For each ticker,
+        Go through all the rows of data to check if ticker matches
+        Get total volume, starting, and ending prices for this ticker
+        Print out the results
+    Do the same for the next ticker
+
+For a data set containing 3,012 rows, and 12 tickers, the code is checking 3,012 x 12 = 36,144 rows.
+
+In the refactored code, the logic is:
+
+    For each row of data,
+        If the ticker matches what we are currently checking, 
+            Get total volume, starting, and ending prices for this ticker
+        Move on to the next ticker and do the same
+
+For the same data set, the code is checking each of the 3,012 row only one time - which is part of the reason why the refactored code run time is much faster. 
 
 ### Disadvantages
-1. 
-2. 
-There is a detailed statement on the advantages and disadvantages of the original and refactored VBA script (3 pt).
+In both the original and refactored codes, the logic assumes that stock data for each stock is grouped together, and ordered based on the date. The starting and ending prices are prone to errors if the stock data is not organized in the exact way in future years. 
